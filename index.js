@@ -25,14 +25,9 @@ cloudinary.config({
 
 const publicKey = process.env.PUBLIC_KEY;
 
-app.get("/games"),
-  async (req, res) => {
-    try {
-      const response = await axios.get(`https://api.rawg.io/api/games`);
-    } catch (error) {
-      res.status(400).json({ message: error.message });
-    }
-  };
+// Import des routes
+const userRoutes = require("./routes/user");
+app.use(userRoutes);
 
 app.all("*", (req, res) => {
   res.status(404).json({ message: error.message });
