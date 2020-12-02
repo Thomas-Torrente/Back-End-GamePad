@@ -63,9 +63,9 @@ router.post("/user/signup", async (req, res) => {
 
 router.post("/user/login", async (req, res) => {
   try {
-    const { email, password } = req.fields;
+    const { username, password } = req.fields;
     // Quel est le user qui souhaite se loguer ?
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ username: username });
     console.log(user);
     // S'il existe dans la BDD
     if (user) {
