@@ -30,7 +30,7 @@ const userRoutes = require("./routes/user");
 app.use(userRoutes);
 
 app.all("*", (req, res) => {
-  res.status(404).json({ message: error.message });
+  res.status(404).json({ message: "error do not exist" });
 });
 
 app.listen(process.env.PORT, () => {
