@@ -29,6 +29,9 @@ const publicKey = process.env.PUBLIC_KEY;
 const userRoutes = require("./routes/user");
 app.use(userRoutes);
 
+const reviewRoutes = require("./routes/review");
+app.use(reviewRoutes);
+
 app.all("*", (req, res) => {
   res.status(404).json({ message: "error do not exist" });
 });
