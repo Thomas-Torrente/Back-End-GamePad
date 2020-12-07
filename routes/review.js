@@ -32,4 +32,4 @@ router.post("/review/comment", isAuthenticated, async (req, res) => {
   }
 });
 
-router.get("/reviews", async (req, res) => {});
+// router.get("/reviews", async (req, res) => {});
