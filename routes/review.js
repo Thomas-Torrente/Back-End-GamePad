@@ -6,18 +6,19 @@ const cloudinary = require("cloudinary").v2;
 
 const Review = require("../models/Review");
 //isAuthenticated
-router.post("/:slug/post", async (req, res) => {
+router.post("/games/:slug/post", async (req, res) => {
   try {
     const newComment = new Review({
       Review_title: title,
       Review_comments: comments,
-      owner: req.user,
+      // owner: req.user,
     });
 
     await newComment.save();
 
     res.json(newComment);
   } catch (error) {
+    console.log("passe ici pk on sais pas mais passe ici");
     res.status(400).json({ error: error.message });
   }
 });
