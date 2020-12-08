@@ -9,7 +9,7 @@ const isAuthenticated = async (req, res, next) => {
     // console.log(token);
 
     // Chercher dans la BDD le user qui possède ce token
-    const user = await User.findOne({ token: token }).select("account _id");
+    const user = await User.findOne({ token: token }).select("account._id");
     // console.log(user);
     if (user) {
       // J'ajoute une clé user à l'objet req, contenant les infos du user
