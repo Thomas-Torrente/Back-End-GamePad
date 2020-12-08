@@ -1,13 +1,13 @@
 const express = require("express");
+
 const formidable = require("express-formidable");
 const axios = require("axios");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
 
-require("dotenv").config();
-
 const app = express();
+require("dotenv").config();
 app.use(formidable());
 app.use(cors());
 
