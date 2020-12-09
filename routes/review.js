@@ -6,11 +6,14 @@ const cloudinary = require("cloudinary").v2;
 
 const Review = require("../models/Review");
 //isAuthenticated
-router.post("/games/:slug/post", async (req, res) => {
+router.post("/games/:id/post", async (req, res) => {
   try {
+    // console.log(req.fields);
+
     const newComment = new Review({
-      Review_title: title,
-      Review_comments: comments,
+      Review_title: req.fields.title,
+      Review_comments: req.fields.comments,
+
       // owner: req.user,
     });
 
@@ -22,5 +25,19 @@ router.post("/games/:slug/post", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+router.get("/games/:id/review"),
+  async (req, res) => {
+    try {
+      const reviewId = await Review.findById(req.params.id).populate({
+        select: "Review_title Review_comments",
+      });
+      res.json(reviewId);
+    } catch (error) {
+      console.log("repasse ici");
+      res.status(400).json({ error: error.message });
+    }
+    console.log("ca marche inchallah");
+  };
 
 module.exports = router;
