@@ -10,11 +10,16 @@ router.post("/games/:id/post", async (req, res) => {
   try {
     // console.log(req.fields);
 
-    const newComment = new Review({
-      Review_title: req.fields.title,
-      Review_comments: req.fields.comments,
+    const { description, title } = req.fields;
 
-      // owner: req.user,
+    const newComment = new Review({
+      gameSlug: req.fields.slug,
+      commentsAll: [
+        { commentTitle: title },
+        { commentDescription: description },
+      ],
+
+      user: req.user,
     });
 
     await newComment.save();
@@ -37,7 +42,6 @@ router.get("/games/:id/review"),
       console.log("repasse ici");
       res.status(400).json({ error: error.message });
     }
-    console.log("ca marche inchallah");
   };
 
 module.exports = router;
