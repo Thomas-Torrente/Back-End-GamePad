@@ -33,7 +33,7 @@ const reviewRoutes = require("./routes/review");
 app.use(reviewRoutes);
 
 app.all("*", (req, res) => {
-  res.status(404).json({ message: "error do not exist" });
+  res.status(404).json({ message: "error route not exist" });
 });
 
 app.listen(process.env.PORT, () => {

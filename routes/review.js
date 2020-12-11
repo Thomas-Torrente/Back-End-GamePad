@@ -31,17 +31,18 @@ router.post("/games/:id/post", async (req, res) => {
   }
 });
 
-router.get("/games/:id/review"),
-  async (req, res) => {
-    try {
-      const reviewSlug = await Review.findOne(slug).populate({
-        select: "commentsAll.title commentsAll.description commentsAll.user",
-      });
-      res.json(reviewSlug);
-    } catch (error) {
-      console.log("repasse ici");
-      res.status(400).json({ error: error.message });
-    }
-  };
+router.get("/games/review/:slug", async (req, res) => {
+  try {
+    const reviewSlug = await Review.findOne({
+      gameSlug: req.params.slug,
+    }).select("commentsAll.title commentsAll.description commentsAll.user");
+
+    res.json(reviewSlug);
+    console.log(reviewSlug);
+  } catch (error) {
+    console.log("erreur");
+    res.status(400).json({ error: error.message });
+  }
+});
 
 module.exports = router;
