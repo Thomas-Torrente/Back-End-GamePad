@@ -6,7 +6,7 @@ const cloudinary = require("cloudinary").v2;
 
 const Review = require("../models/Review");
 //isAuthenticated
-router.post("/games/:id/post", async (req, res) => {
+router.post("/games/post", async (req, res) => {
   const { description, title, slug } = req.fields;
 
   const commentFound = await Review.findOne({ gameSlug: req.fields.slug });
