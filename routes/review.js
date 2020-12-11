@@ -6,7 +6,7 @@ const cloudinary = require("cloudinary").v2;
 
 const Review = require("../models/Review");
 //isAuthenticated
-router.post("/games/post", async (req, res) => {
+router.post("/games/:id/post", async (req, res) => {
   const { description, title, slug } = req.fields;
 
   const commentFound = await Review.findOne({ gameSlug: req.fields.slug });
@@ -31,10 +31,10 @@ router.post("/games/post", async (req, res) => {
   }
 });
 
-router.get("/games/:id/review", async (req, res) => {
+router.get("/games/review/:slug", async (req, res) => {
   try {
     const reviewSlug = await Review.findOne({
-      gameSlug: req.params.id,
+      gameSlug: req.params.slug,
     }).select("commentsAll.title commentsAll.description commentsAll.user");
 
     res.json(reviewSlug);
