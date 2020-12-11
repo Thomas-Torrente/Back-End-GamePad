@@ -31,7 +31,7 @@ router.post("/games/:id/post", async (req, res) => {
   }
 });
 
-router.get("/games/:slug/review", async (req, res) => {
+router.get("/games/review/:slug", async (req, res) => {
   try {
     const reviewSlug = await Review.findOne({
       gameSlug: req.params.slug,
