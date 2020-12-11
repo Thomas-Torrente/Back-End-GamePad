@@ -9,27 +9,35 @@ const Review = require("../models/Review");
 router.post("/games/:id/post", async (req, res) => {
   const { description, title, slug } = req.fields;
 
-  const checkCommentExist = await Review.findOne({ gameSlug: req.fields.slug });
+  const commentFound = await Review.findOne({ gameSlug: req.fields.slug });
 
-  console.log(checkCommentExist);
-  res.json(checkCommentExist);
-  if (gameSlug === null) {
+  if (commentFound === null) {
     // si c null go créer le tableau comment all
     const commentAll = new Review({
       gameSlug: slug,
       commentsAll: [{ title: title, description: description, user: req.user }],
     });
+    commentAll.save();
+    console.log("ca passe creme dans if");
+    res.json(commentAll);
   } else {
+    commentFound.commentsAll = [
+      ...commentFound.commentsAll,
+      { title: title, description: description, user: req.user },
+    ];
+    commentFound.save();
+    console.log("ca pase bien dans le else");
+    res.json(commentFound);
   }
 });
 
 router.get("/games/:id/review"),
   async (req, res) => {
     try {
-      const reviewId = await Review.findById(req.params.id).populate({
-        select: "Review_title Review_comments",
+      const reviewSlug = await Review.findOne(slug).populate({
+        select: "commentsAll.title commentsAll.description commentsAll.user",
       });
-      res.json(reviewId);
+      res.json(reviewSlug);
     } catch (error) {
       console.log("repasse ici");
       res.status(400).json({ error: error.message });
