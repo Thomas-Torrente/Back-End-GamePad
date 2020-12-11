@@ -31,10 +31,10 @@ router.post("/games/post", async (req, res) => {
   }
 });
 
-router.get("/games/review/:slug", async (req, res) => {
+router.get("/games/:id/review", async (req, res) => {
   try {
     const reviewSlug = await Review.findOne({
-      gameSlug: req.params.slug,
+      gameSlug: req.params.id,
     }).select("commentsAll.title commentsAll.description commentsAll.user");
 
     res.json(reviewSlug);
