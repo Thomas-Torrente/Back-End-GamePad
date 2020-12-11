@@ -7,27 +7,19 @@ const cloudinary = require("cloudinary").v2;
 const Review = require("../models/Review");
 //isAuthenticated
 router.post("/games/:id/post", async (req, res) => {
-  try {
-    // console.log(req.fields);
+  const { description, title, slug } = req.fields;
 
-    const { description, title } = req.fields;
+  const checkCommentExist = await Review.findOne({ gameSlug: req.fields.slug });
 
-    const newComment = new Review({
-      gameSlug: req.fields.slug,
-      commentsAll: [
-        { commentTitle: title },
-        { commentDescription: description },
-      ],
-
-      user: req.user,
+  console.log(checkCommentExist);
+  res.json(checkCommentExist);
+  if (gameSlug === null) {
+    // si c null go créer le tableau comment all
+    const commentAll = new Review({
+      gameSlug: slug,
+      commentsAll: [{ title: title, description: description, user: req.user }],
     });
-
-    await newComment.save();
-
-    res.json(newComment);
-  } catch (error) {
-    console.log("passe ici pk on sais pas mais passe ici");
-    res.status(400).json({ error: error.message });
+  } else {
   }
 });
 
